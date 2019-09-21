@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace ConsoleApplication6
 {
     class Program
     {
-        static void Main(string[] args)
+       static void Main(string[] args)
         {
-
+            Program a = new Program();
             //  Amicablenumbers 
-            //int j = Amicablenumbers(10000); //31626  20190921
+            //int j = a.Amicablenumbers(10000); //31626  20190921
+
+            // 871198282  namescore long g1 = a.namescore(@"C:\Users\hongy\Desktop\ProjectEuler\\p022_names1.txt");
 
 
 
@@ -26,7 +28,47 @@ For example, the proper divisors of 220 are 1, 2, 4, 5, 10, 11, 20, 22, 44, 55 a
 Evaluate the sum of all the amicable numbers under 10000.
              // 31626
              */
-        static int Amicablenumbers(int max)
+
+        long namescore(string fileNameAndPath)
+        {
+            string text = File.ReadAllText(fileNameAndPath);
+
+            string[] textwiht1 = text.Split(',');
+            Array.Sort(textwiht1);
+            
+
+            int position = 1;
+            long total = 0;
+            foreach(string sname in textwiht1)
+            {
+                string name = sname.Trim('\"');
+                total += calculateNameScore(name) * position;
+                position++;
+
+            }
+
+
+
+            return total;
+        }
+
+        long calculateNameScore(string name)
+        {
+            string upper = name.ToUpper();
+            long sum = 0;
+            for(int i = 0; i < upper.ToCharArray().Length; i++)
+            {
+               sum += upper[i] - 'A' + 1;
+
+            }
+
+            return sum;
+        }
+
+
+
+
+         int Amicablenumbers(int max)
         {
             int sum = 0;
 
